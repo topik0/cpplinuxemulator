@@ -16,7 +16,9 @@ void loginStart();
 int prompt()
 {
 	cout << username << "@" << hostname << ":~$ ";
-	cin >> input;
+	cin.clear();
+	cin.ignore(10000000, '\n');
+	getline(cin, input);	
 	if (input == "help") {
 		cout << "Help:" << endl;
 		cout << "help  -  Displays the help command" << endl;
