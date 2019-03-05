@@ -39,12 +39,12 @@ int prompt()
 	}
 	else if (input == "sudo -s") {
 		cout << "[sudo] password for " << username << ": ";
-		cin >> input;
+		getline(cin, input);
 		while(sudoPasswordCheck() == false && sudoPasswordCount < 2) {
 			sudoPasswordCount++;
 			cout << "Sorry, try again." << endl;
 			cout << "[sudo] password for " << username << ": ";
-			cin >> input;
+			getline(cin, input);
 		}
 		if (sudoPasswordCheck() == true) {
 			username = "root";
@@ -74,7 +74,7 @@ void login() {
 	getline(cin, username);
 	cout << "Please choose a sudo password" << endl << "~$ ";
 	getline(cin, sudopassword);
-	userhost = username + hostname + ":~$ ";
+	userhost = username + "@" + hostname + ":~$ ";
 	prompt();
 }
 
@@ -84,7 +84,7 @@ void nonExistentCommandLogin() {
 }
 
 void loginStart() {
-	cin >> input;
+	getline(cin, input);
 	if (input == "login") {
 		login();
 	}
@@ -99,8 +99,8 @@ int main()
 	getline(cin, hostname);
 	cout << "Please choose a username" << endl << "> ";
 	getline(cin, username);
-	cout << "Please choose a sudo password" << endl;
+	cout << "Please choose a sudo password" << endl << "> ";
 	getline(cin, sudopassword);
-	userhost = username + hostname + ":~$ ";
+	userhost = username + "@" +  hostname + ":~$ ";
 	prompt();
 }
