@@ -24,17 +24,17 @@ int prompt()
 		cout << "login  -  Creates a new user session" << endl;
 		prompt();
 	}
-	if (input == "shutdown") {
+	else if (input == "shutdown") {
 		return 0;
 	}
-	if (input == "logout") {
+	else if (input == "logout") {
 		cout << "Logging out..." << endl;
 		cout << "You have been logged out.  Type 'login' to login" << endl << username << "@" << hostname << ":~$ ";
 		loginStart();
 	}
-	if (input == "sudo -s") {
-		cout << "[sudo] password for " << username;
-
+	else if (input == "sudo -s") {
+		cout << "[sudo] password for " << username << " ";
+		cin >> sudopassword;
 	}
 	else {
 		cout << "-bash: " << input << ": " << "command not found" << endl;
