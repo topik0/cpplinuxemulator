@@ -10,8 +10,11 @@ string hostname;
 string username;
 string input;
 string sudopassword;
+string userhost;
+int sudoPasswordCount = 0;
 
 void loginStart();
+bool sudoPasswordCheck();
 
 int prompt()
 {
@@ -35,12 +38,32 @@ int prompt()
 		loginStart();
 	}
 	else if (input == "sudo -s") {
-		cout << "[sudo] password for " << username << " ";
-		cin >> sudopassword;
+		cout << "[sudo] password for " << username << ": ";
+		cin >> input;
+		while(sudoPasswordCheck() == false && sudoPasswordCount < 2) {
+			sudoPasswordCount++;
+			cout << "Sorry, try again." << endl;
+			cout << "[sudo] password for " << username << ": ";
+			cin >> input;
+		}
+		if (sudoPasswordCheck() == true) {
+			username = "root";
+		}
+		cout << "sudo: 3 incorrect password attempts" << endl;
+		prompt();
 	}
 	else {
 		cout << "-bash: " << input << ": " << "command not found" << endl;
 		prompt();
+	}
+}
+
+bool sudoPasswordCheck() {
+	if (sudopassword == input) {
+		return true;
+	}
+	else {
+		return false;
 	}
 }
 
@@ -73,5 +96,7 @@ int main()
 	cin >> hostname;
 	cout << "Please choose a username" << endl << "~$ ";
 	cin >> username;
+	cout << "Please choose a password" << endl <<
+	userhost = username + hostname + ":~$ ";
 	prompt();
 }
