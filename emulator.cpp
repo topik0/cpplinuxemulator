@@ -1,7 +1,7 @@
 // UnixEmulator.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 
-#include "pch.h"
+// #include "pch.h"
 #include <iostream>
 #include <string>
 using namespace std;
@@ -15,6 +15,7 @@ int sudoPasswordCount = 0;
 
 void loginStart();
 bool sudoPasswordCheck();
+int main();
 
 int prompt()
 {
@@ -25,10 +26,17 @@ int prompt()
 		cout << "help  -  Displays the help command" << endl;
 		cout << "logout  -  Ends the user session" << endl;
 		cout << "login  -  Creates a new user session" << endl;
+		cout << "sudo -s  -  Activates a root shell session" << endl;
+		cout << "shutdown  -  Ends the user session" << endl;
+		cout << "reboot  -  Reboots the system" << endl;
 		prompt();
 	}
 	else if (input == "shutdown") {
-		return 0;
+		system("exit");
+	}
+	else if (input == "reboot" || input == "restart"){
+	    cout << "Rebooting..." << endl;
+	    main();
 	}
 	else if (input == "logout") {
 		cout << "Logging out..." << endl;
@@ -46,11 +54,15 @@ int prompt()
 		}
 		if (sudoPasswordCheck() == true) {
 			username = "root";
+			userhost = username + "@" + hostname + ":~$ ";
 			prompt();
 		}
 		cout << "sudo: 3 incorrect password attempts" << endl;
 		prompt();
 	}
+	//else if(input == "sudo passwd"){
+	//    cout << 
+	//}
 	else {
 		cout << "-bash: " << input << ": " << "command not found" << endl;
 		prompt();
