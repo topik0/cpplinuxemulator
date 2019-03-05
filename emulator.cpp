@@ -19,8 +19,6 @@ bool sudoPasswordCheck();
 int prompt()
 {
 	cout << userhost;
-	cin.clear();
-	cin.ignore(10000000, '\n');
 	getline(cin, input);	
 	if (input == "help") {
 		cout << "Help:" << endl;
@@ -48,6 +46,7 @@ int prompt()
 		}
 		if (sudoPasswordCheck() == true) {
 			username = "root";
+			prompt();
 		}
 		cout << "sudo: 3 incorrect password attempts" << endl;
 		prompt();
