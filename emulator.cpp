@@ -18,7 +18,7 @@ bool sudoPasswordCheck();
 
 int prompt()
 {
-	cout << username << "@" << hostname << ":~$ ";
+	cout << userhost;
 	cin.clear();
 	cin.ignore(10000000, '\n');
 	getline(cin, input);	
@@ -34,7 +34,7 @@ int prompt()
 	}
 	else if (input == "logout") {
 		cout << "Logging out..." << endl;
-		cout << "You have been logged out.  Type 'login' to login" << endl << username << "@" << hostname << ":~$ ";
+		cout << "You have been logged out.  Type 'login' to login" << endl << userhost;
 		loginStart();
 	}
 	else if (input == "sudo -s") {
@@ -69,9 +69,12 @@ bool sudoPasswordCheck() {
 
 void login() {
 	cout << "Please choose a host name" << endl << "~$ ";
-	cin >> hostname;
+	getline(cin, hostname);
 	cout << "Please choose a username" << endl << "~$ ";
-	cin >> username;
+	getline(cin, username);
+	cout << "Please choose a sudo password" << endl << "~$ ";
+	getline(cin, sudopassword);
+	userhost = username + hostname + ":~$ ";
 	prompt();
 }
 
@@ -92,11 +95,12 @@ void loginStart() {
 
 int main()
 {
-	cout << "Welcome to the Unix terminal emulator made by Topik!" << "  " << "Please choose a host name" << endl << "~$ ";
-	cin >> hostname;
-	cout << "Please choose a username" << endl << "~$ ";
-	cin >> username;
-	cout << "Please choose a password" << endl <<
+	cout << "Welcome to the Linux terminal emulator made by Topik!" << "  " << "Please choose a host name" << endl << "> ";
+	getline(cin, hostname);
+	cout << "Please choose a username" << endl << "> ";
+	getline(cin, username);
+	cout << "Please choose a sudo password" << endl;
+	getline(cin, sudopassword);
 	userhost = username + hostname + ":~$ ";
 	prompt();
 }
